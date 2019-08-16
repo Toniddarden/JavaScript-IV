@@ -13,7 +13,7 @@
 //   specialty: 'Front-end',
 //   catchPhrase: `Don't forget the homies`
 // });
-//  -----------------------------------------------
+//  -----------------------------------------------  Person
 
 // Person
 
@@ -70,7 +70,7 @@ const robby = new Person({
 console.log(robby);
 robby.speak();
 
-// ---------------------------------------------
+// ---------------------------------------------    Instructor
 
 // Instructor
 
@@ -91,10 +91,10 @@ class Instructor extends Person {
     this.favLanguage = InstructorAttributes.favLanguage;
     this.catchPhrase = InstructorAttributes.catchPhrase;
   }
-  demo(subject) {
+  demo(subject = this.favLanguage) {
     console.log(`Today we are learning about ${subject}`);
   }
-  grade(subject) {
+  grade(subject = this.favLanguage) {
     console.log(`${this.name} receives a perfect score on ${subject}`);
   }
 }
@@ -134,7 +134,7 @@ const jennifer = new Instructor({
 });
 console.log(jennifer);
 jennifer.demo();
-// ----------------------------------------------
+// ----------------------------------------------     Student
 
 // Student
 
@@ -158,33 +158,57 @@ class Student extends Person {
     this.className = StudentAttributes.className;
     this.favSubjects = StudentAttributes.favSubjects;
   }
-  listsSubjects(){
-    this.favSubjects.forEach(function(favSubjects){
-        console.log(favSubjects);
-    })
-}
-  PRAssignment(subject) {
+  listsSubjects() {
+    this.favSubjects.forEach(favSubject => console.log(favSubject));
+  }
+  PRAssignment(subject = this.favSubjects) {
     console.log(`${this.name} has submitted a PR for ${subject}`);
   }
-  sprintChallenge() {
+  sprintChallenge(subject = this.favSubjects) {
     console.log(`${this.name} has begun sprint challenge on ${subject}`);
   }
 }
 
 const toni = new Student({
-  name: "Pat",
-  location: "Yeadon",
-  age: 61,
+  name: "Toni",
+  location: "Philly",
+  age: 25,
   favLanguage: "JavaScript",
-  specialty: "back-end",
-  catchPhrase: `Don't forget the MomMom's`,
-  previousBackground: "English Teacher",
+  specialty: "Fullstack",
+  catchPhrase: `Don't forget Me`,
+  previousBackground: "Teacher",
   favSubjects: "Javascript"
 });
 console.log(toni);
-listsSubjects(toni);
+toni.PRAssignment();
 
-// ----------------------------------------------
+const gerald = new Student({
+  name: "Gerald",
+  location: "North Philly",
+  age: 60,
+  favLanguage: "Java",
+  specialty: "Fullstack",
+  catchPhrase: `Don't forget the Cowboy`,
+  previousBackground: "Driver",
+  favSubjects: "Java"
+});
+console.log(gerald);
+gerald.sprintChallenge();
+
+const memmom = new Student({
+  name: "Me Mom",
+  location: "North Carolina",
+  age: 90,
+  favLanguage: "C++",
+  specialty: "Gaming",
+  catchPhrase: `Don't forget the OG`,
+  previousBackground: "CEO",
+  favSubjects: "C++/C#"
+});
+console.log(memmom);
+memmom.sprintChallenge();
+
+// ----------------------------------------------        Project Manager
 // Project Manager
 
 // Now that we have instructors and students, we'd be nowhere without our PM's
@@ -195,3 +219,47 @@ listsSubjects(toni);
 // ProjectManagers have the following Methods:
 // standUp a method that takes in a slack channel and logs `{name} announces to {channel}, @channel standy times!​​​​​
 // debugsCode a method that takes in a student object and a subject and logs out {name} debugs {student.name}'s code on {subject}
+
+class ProjectManagers extends Instructor {
+  constructor(ProjectManagersAttributes) {
+    super(ProjectManagersAttributes);
+    this.gradClassName = ProjectManagersAttributes.gradClassName;
+    this.favInstructor = ProjectManagersAttributes.favInstructor;
+  }
+  standUp(channel = "Slack") {
+    console.log(`${this.name} announces to ${channel}, @channel standy times!`);
+  }
+  debugsCode(subject = this.specialty) {
+    console.log(`${this.name} debugs ${toni.name}'s code on ${subject}.`);
+  }
+}
+
+const sean = new ProjectManagers({
+  name: "Sean",
+  gradClassName: "CS1",
+  favInstructor: "Pat",
+  location: "Canada",
+  age: 41,
+  specialty: "back-end",
+  catchPhrase: `Don't forget the PM`,
+  subject: "CS"
+});
+
+console.log(sean);
+sean.standUp();
+sean.debugsCode();
+
+const ivan = new ProjectManagers({
+    name: "Ivan",
+    gradClassName: "CS2",
+    favInstructor: "Ashley",
+    location: "South America",
+    age: 29,
+    specialty: "front-end",
+    catchPhrase: `Don't forget the other PM`,
+    subject: "CS2"
+  });
+  
+  console.log(ivan);
+  ivan.standUp();
+  ivan.debugsCode();
